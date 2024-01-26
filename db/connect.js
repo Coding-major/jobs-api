@@ -1,15 +1,8 @@
 const mongoose = require("mongoose")
-const connectDB = require("../../store-api/db/connect")
-const connectionString = "mongodb://localhost:27017/mystore"
 
-
+const connectionString = "mongodb://localhost:27017/JOBS-API"
 const connectDB = (url) => {
-    return mongoose.connect(connectionString, {
-        useNewUrlParser: true,//
-        useCreateIndex: true,
-        useUnifiedTopology: true,//
-        useFindAndModify: false
-    })
+    return mongoose.connect(connectionString)
 }
 
 module.exports = connectDB

@@ -1,3 +1,6 @@
+const {unAunthenticated, customError} = require("../errors/index")
+
+
 const getAllJobs = async (req, res) => {
 
 }
@@ -17,7 +20,7 @@ const updateJob = async (req, res) => {
 const deleteJob = async (req, res) => {
     
 }
-
+  
 module.exports = {
     getAllJobs,
     getJob,
