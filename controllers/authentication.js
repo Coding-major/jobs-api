@@ -6,7 +6,14 @@ const bcrypt = require("bcryptjs")
 
 const register = async(req, res) => {
     try {
+
         const {name, email, password} = req.body
+
+        // if(!name || !email || !password) {
+        //     throw new badRequest("please provide the required detail")
+        // }
+
+
         const salt = await bcrypt.genSalt(10)
         const hashedPasssword = await bcrypt.hash(password, salt)
 
