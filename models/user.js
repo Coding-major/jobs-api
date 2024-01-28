@@ -28,11 +28,11 @@ const userSchema = new mongoose.Schema(
     }
 )
 
-userSchema.pre("save", async function(next) {
-
+// removed the next() in the function and it will still work
+userSchema.pre("save", async function() {
+    
     const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
-    next()
 })
 
 module.exports = mongoose.model("user", userSchema)
