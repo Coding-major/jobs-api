@@ -6,25 +6,18 @@ const bcrypt = require("bcryptjs")
 
 const register = async(req, res) => {
     try {
-
-        const {name, email, password} = req.body
-
-        // if(!name || !email || !password) {
-        //     throw new badRequest("please provide the required detail")
-        // }
-
-
-        const salt = await bcrypt.genSalt(10)
-        const hashedPasssword = await bcrypt.hash(password, salt)
-
-
-        const redefinedUser = {name, email, password: hashedPasssword}
-        const user = await User.create({...redefinedUser})
+        
+        const user = await User.create({...req.body})
 
         res.status(StatusCodes.CREATED).json({user})
 
+
+    
+
     } catch (error) {
+
         console.log(error)
+
     }
     
     //console.log(user.name)
