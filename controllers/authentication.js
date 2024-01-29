@@ -1,7 +1,6 @@
 const User = require("../models/user")
-const { badRequest } = require("../errors/badRequest")
+const { badRequest, unAuthenticatedError} = require('../errors/index')
 const {StatusCodes} = require("http-status-codes")
-const jwt = require("jsonwebtoken")
 
 
 const register = async(req, res) => {
@@ -12,13 +11,8 @@ const register = async(req, res) => {
 
         res.status(StatusCodes.CREATED).json({user:{name: user.name},token})
 
-
-    
-
     } catch (error) {
-
         console.log(error)
-
     }
     
     //console.log(user.name)
@@ -29,7 +23,32 @@ const register = async(req, res) => {
     // const {name, email, password} = req.body
 }
 
+
+
 const login = async (req, res) => {
+
+    const {email, password} = req.body
+
+    if(!email || !password) {
+        throw new badRequest("please provide email or password")
+    }
+    const user = await User.findOne({email})
+
+    
+    if(!user) {
+        throw new unAuthenticatedError("Not a user")
+    }
+
+    const isCorrect = await user.comparePassword(password)
+
+    if (!isCorrect) {
+        throw new unAuthenticatedError("password is incorrect")
+    }
+
+
+    const token = user.createJWT()
+
+    res.status(StatusCodes.OK).json({user: {name: user.name}, token})
 
 }
 
