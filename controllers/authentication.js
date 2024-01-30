@@ -5,22 +5,22 @@ const {StatusCodes} = require("http-status-codes")
 
 const register = async(req, res) => {
     try {
-        
-        const user = await User.create({...req.body})
-        const named = user.getName()
 
-        res.status(StatusCodes.CREATED).json({username: named})
+        const {name, email, password} = req.body
+
+        if(!name || !email || !password) {
+            throw new badRequest("please insert a name or email or password to register")
+        } 
+    
+        const user = await User.create({...req.body})
+        const token = user.createJWT()
+
+        res.status(StatusCodes.CREATED).json({user:{username: user.name}, token})
 
     } catch (error) {
         console.log(error)
     }
     
-    //console.log(user.name)
-    // if(!name || !email || password) {
-    //     throw new badRequest("please provide a name or email or password")
-    // } 
-
-    // const {name, email, password} = req.body
 }
 
 

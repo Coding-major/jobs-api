@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
     }
 )
 
-// removed the next() in the function and it will still work
+// creating password
 userSchema.pre("save", async function() {
     
     const salt = await bcrypt.genSalt(10)
@@ -37,15 +37,18 @@ userSchema.pre("save", async function() {
 
 })
 
-userSchema.methods.getName = function() {
-    const theName = this.name;
-    return theName
-}
+// userSchema.methods.getName = function() {
+//     const theName = this.name;
+//     return theName
+// }
 
+
+//creating token
 userSchema.methods.createJWT = function() {
     return jwt.sign({name: this.name, userID: this._id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})
 } 
 
+//comparing password
 userSchema.methods.comparePassword = function(loginPassword) {
     return bcrypt.compare(loginPassword, this.password)
 }

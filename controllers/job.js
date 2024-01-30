@@ -10,7 +10,7 @@ const getJob = async (req, res) => {
 }
 
 const createJob = async (req, res) => {
-    res.status("create job")
+    res.json("create job")
 }
 
 const updateJob = async (req, res) => {
