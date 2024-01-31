@@ -37,11 +37,6 @@ userSchema.pre("save", async function() {
 
 })
 
-// userSchema.methods.getName = function() {
-//     const theName = this.name;
-//     return theName
-// }
-
 
 //creating token
 userSchema.methods.createJWT = function() {
@@ -54,4 +49,4 @@ userSchema.methods.comparePassword = function(loginPassword) {
 }
 
 
-module.exports = mongoose.model("user", userSchema)
+module.exports = mongoose.model("User", userSchema)
