@@ -18,7 +18,7 @@ const register = async(req, res) => {
         res.status(StatusCodes.CREATED).json({user:{username: user.name}, token})
 
     } catch (error) {
-        console.log(error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "wwwwwwww"})
     }
     
 }
