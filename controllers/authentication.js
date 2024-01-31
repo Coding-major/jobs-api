@@ -4,7 +4,7 @@ const {StatusCodes} = require("http-status-codes")
 
 
 const register = async(req, res) => {
-    try {
+
 
         const {name, email, password} = req.body
 
@@ -17,9 +17,6 @@ const register = async(req, res) => {
 
         res.status(StatusCodes.CREATED).json({user:{username: user.name}, token})
 
-    } catch (error) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({error: "wwwwwwww"})
-    }
     
 }
 
