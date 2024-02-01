@@ -1,5 +1,5 @@
 const User = require("../models/user")
-const { badRequest, unAuthenticatedError} = require('../errors/index')
+const { badRequest, unAuthenticatedError, customError} = require('../errors/index')
 const {StatusCodes} = require("http-status-codes")
 
 
@@ -8,16 +8,15 @@ const register = async(req, res) => {
 
         const {name, email, password} = req.body
 
-        if(!name || !email || !password) {
-            throw new badRequest("please insert a name or email or password to register")
-        } 
+        // if(!name || !email || !password) {
+        //     throw new customError("please insert a name or email or password to register", 501)
+        // }
     
         const user = await User.create({...req.body})
         const token = user.createJWT()
 
         res.status(StatusCodes.CREATED).json({user:{username: user.name}, token})
-
-    
+ 
 }
 
 
