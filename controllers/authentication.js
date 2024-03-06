@@ -7,10 +7,6 @@ const register = async(req, res) => {
 
 
         const {name, email, password} = req.body
-
-        // if(!name || !email || !password) {
-        //     throw new customError("please insert a name or email or password to register", 501)
-        // }
     
         const user = await User.create({...req.body})
         const token = user.createJWT()

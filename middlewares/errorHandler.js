@@ -14,15 +14,15 @@ const errorHandler = (err, req, res, next) => {
           message = "email or password or name is blank"
       }
 
+      if (err.code && err.code === 11000) {
+        statusCode = 400
+        message = "user with that email already exist"
+        //return res.status(StatusCodes.BAD_REQUEST).json({errorName: err.name, msg: "user with that email already exist"})
+    }
 
       if (err.name === "CastError") {
           statusCode = 400;
           message = `Invalid params of ${err.value}`
-      }
-
-
-      if (err.code && err.code === 11000) {
-          return res.status(StatusCodes.BAD_REQUEST).json({errorName: err.name, msg: "user with that email already exist"})
       }
 
       
