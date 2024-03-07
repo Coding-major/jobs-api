@@ -37,7 +37,6 @@ app.use(cors())
 app.use(xss())
 
 
-//routes
 app.use("/api/v1/jobs", authenticateUser, jobsRoute)
 app.use("/api/v1/auth", authRoute)
 

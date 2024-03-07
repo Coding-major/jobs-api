@@ -7,6 +7,11 @@ const register = async(req, res) => {
 
 
         const {name, email, password} = req.body
+        const emailAlreadyExist = await User.findOne({email})
+
+        if(emailAlreadyExist) {
+            throw new badRequest("Email already exist naaaa")
+        }
     
         const user = await User.create({...req.body})
         const token = user.createJWT()
@@ -21,9 +26,9 @@ const login = async (req, res) => {
 
     const {email, password} = req.body
 
-    if(!email || !password) {
-        throw new badRequest("please provide email or password")
-    }
+    // if(!email || !password) {
+    //     throw new badRequest("please provide email or password")
+    // }
     const user = await User.findOne({email})
 
     
